@@ -42,28 +42,30 @@ class App extends React.Component {
   }
 
   render() {
-    const todoComponents = todos.map(
-      item => 
-        <TodoItem 
-          key={item.id} 
-          item={item} 
-          handleClick={this.handleClick}/>
-    );
+    if (this.state.isLoading) {
+      return(
+        <div className="App">
+          <h1>Loading...</h1>
+        </div>
+      );
+    } else {
+      let todoComponents = todos.map(
+        item => 
+          <TodoItem 
+            key={item.id} 
+            item={item} 
+            handleClick={this.handleClick}/>
+      );
 
-
-    return (
-      <div className="App">
-        {this.state.isLoading && <h1>Loading...</h1>}
-
-        {!this.state.isLoading && <p>{this.state.character.name}</p>}
-        {!this.state.isLoading && <TodoForm />}
-        {!this.state.isLoading && todoComponents}
-        
-      </div>
-    );
+      return(
+        <div className="App">
+          <p>{this.state.character.name}</p>
+          <TodoForm />
+          {todoComponents}
+        </div>
+      );
+    }
   }
-
-
 }
 
 export default App;
